@@ -3,6 +3,13 @@ let h2 = document.querySelector("h2");
 let reset = document.querySelector("#reset");
 let newBtn = document.querySelector("#new");
 
+let winner = false;
+
+let draw = false;
+
+let countX = 0;
+let countO = 0;
+
 let turnX = true;
 
 let winnerPatterns = [[0,1,2],[0,3,6],[0,4,8],[3,4,5],[6,7,8],[1,4,7],[2,5,8],[2,4,6]]
@@ -37,8 +44,18 @@ function checkWinner(){
                         box.disabled = true;
                     }
                     let h2 = document.querySelector("h2");
-                    h2.innerText = `Winner Is Player : ${pos1}`;      
-                    return true;
+                    h2.innerText = `Winner Is Player : ${pos1}`;  
+
+                    let X = document.querySelector("#X");
+                    let O = document.querySelector("#O");
+
+                    if(pos1 === "X"){
+                        X.innerText = `X score : ${++countX}`;
+                    } else{
+                        O.innerText = `O score: ${++countO}`;
+                    }   
+
+                    return winner = true;
             }
         }
     }
@@ -54,12 +71,12 @@ function checkDraw(){
 
     if(bool){
         h2.innerText = "It's a draw!";
-        return true;
+        return draw = true;
     }
 }
 
 reset.addEventListener("click", () => {
-    if(!(checkWinner() || checkDraw())){
+    if(!(winner || draw)){
         turnX = true;
         for(let box of boxes){
             box.innerText = "";
@@ -71,7 +88,7 @@ reset.addEventListener("click", () => {
 });
 
 newBtn.addEventListener("click", () => {
-    if(checkWinner() || checkDraw()){
+    if(winner || draw){
         turnX = true;
         for(let box of boxes){
             box.innerText = "";
