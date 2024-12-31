@@ -90,6 +90,8 @@ reset.addEventListener("click", () => {
 newBtn.addEventListener("click", () => {
     if(winner || draw){
         turnX = true;
+        winner = false;
+        draw = false;
         for(let box of boxes){
             box.innerText = "";
             box.disabled = false;
